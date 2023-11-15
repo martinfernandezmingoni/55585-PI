@@ -1,0 +1,48 @@
+<h1>Listado de Productos</h1>
+<ul class="product-list">
+  {{#each products}}
+  <li data-id={{this.id}}>
+    
+    {{#each this}}
+    <div class="property productItem">
+      <strong>{{@key}}</strong>
+      <span class="span">{{this}}</span>
+    </div>
+    {{/each}}
+  </li>
+  {{/each}}
+</ul>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io()
+  socket.on('newProduct', product => {
+    const productList = document.querySelector('.product-list')
+
+    const productItem = document.createElement('div')
+    productItem.classList.add('productItem')
+    productItem.innerHTML = 
+      `<li data-id=${product.id}>
+        ${Object.entries(product).map(([key, value]) =>{
+          return `<div class="property productItem">
+            <strong>${key}:</strong>
+            <span class="span">${value}</span>
+          </div>`
+        }).join(' ')}
+      </li>`
+    productList.appendChild(productList)
+  })
+
+  socket.on('deleteProduct', productId => {
+    const productList = document.querySelector('.product-list')
+    const productItem = productList.querySelector(`[data-id="${productId}"]`)
+
+    console.log({productItem, productList})
+    if(productItem) {
+      productItem.remove()
+    }
+  })
+  socket.on('message', message => {
+    console.log(message)
+  }) 
+</script>

@@ -151,5 +151,4 @@ router.delete('/:pid', async (req, res) => {
 })
 
 
-const ProductManager = router
-export default ProductManager
+export default router

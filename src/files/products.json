@@ -88,5 +88,16 @@
     "thumbnail": [],
     "code": "CM-010",
     "stock": 60
+  },
+  {
+    "id": 11,
+    "title": "probando",
+    "description": "saraza",
+    "code": "CM-011",
+    "price": 1,
+    "status": true,
+    "stock": 2,
+    "category": "sobala",
+    "thumbnails": []
   }
 ]
