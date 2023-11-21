@@ -1,0 +1,53 @@
+body{
+  margin: 0;
+  padding: 1rem;
+  font-family:sans-serif;
+  background-color: rgb(219, 211, 211);
+}
+div.product-list{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+.productItem{
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+div.formsContainer{
+  display: flex;
+  flex-direction: row;
+  margin: 2rem;
+  padding: 1rem;
+}
+.formsContaine,form{
+  background-color: rgb(136, 128, 255);
+  padding: 1px;
+  width: 15rem;
+  border-radius: 5%;
+  text-align: center;
+}
+form.deleteForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.deleteForm button{
+  width: 10rem;
+}
+input{
+  padding: .5rem;
+  margin: .5rem;
+  border: none;
+  border-radius: 1rem;
+}
+button{
+  padding: .8rem;
+  border-radius: 1rem;
+  border: none;
+}
+button:hover{
+  cursor: pointer;
+}

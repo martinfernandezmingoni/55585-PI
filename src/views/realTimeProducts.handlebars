@@ -1,48 +1,55 @@
-<h1>Listado de Productos</h1>
-<ul class="product-list">
-  {{#each products}}
-  <li data-id={{this.id}}>
-    
-    {{#each this}}
-    <div class="property productItem">
-      <strong>{{@key}}</strong>
-      <span class="span">{{this}}</span>
+<h2>Productos En Tiempo Real</h2>
+<div class="product-list">
+  {{!-- Funcion que itera el array de productos y renderiza una seccion de plantilla por cada producto--}}
+  {{#each productos}}
+    <div class="productItem">
+      <h3>{{this.nombre}} <p>id: {{this.id}}</p></h3>
+      <img src={{this.img}} alt="">
+      <p>{{this.descripcion}}</p>
+      <p>${{this.price}}</p>
     </div>
-    {{/each}}
-  </li>
   {{/each}}
-</ul>
+</div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
   const socket = io()
-  socket.on('newProduct', product => {
-    const productList = document.querySelector('.product-list')
 
-    const productItem = document.createElement('div')
-    productItem.classList.add('productItem')
-    productItem.innerHTML = 
-      `<li data-id=${product.id}>
-        ${Object.entries(product).map(([key, value]) =>{
-          return `<div class="property productItem">
-            <strong>${key}:</strong>
-            <span class="span">${value}</span>
-          </div>`
-        }).join(' ')}
-      </li>`
-    productList.appendChild(productList)
+  //Agregar producto y actualizar productList
+  socket.on('newProduct', products => {
+    const productList = document.querySelector('.product-list');
+    productList.innerHTML = '';
+    products.forEach(product => {
+      const productItem = document.createElement('div');
+      productItem.classList.add('productItem');
+      productItem.innerHTML = `
+        <h3>${product.nombre}</h3>
+        <img src="${product.img}" alt="">
+        <p>${product.descripcion}</p>
+        <p>$${product.price}</p>
+      `
+      productList.appendChild(productItem);
+    })
   })
 
-  socket.on('deleteProduct', productId => {
-    const productList = document.querySelector('.product-list')
-    const productItem = productList.querySelector(`[data-id="${productId}"]`)
-
-    console.log({productItem, productList})
-    if(productItem) {
-      productItem.remove()
-    }
-  })
   socket.on('message', message => {
     console.log(message)
-  }) 
+  })
+  //Eliminar producto y actualizar productList
+  socket.on('deleteProduct', products => {
+    const productList = document.querySelector('.product-list');
+    productList.innerHTML = '';
+    products.forEach(product => {
+      const productItem = document.createElement('div');
+      productItem.classList.add('productItem');
+      productItem.innerHTML = `
+        <h3>${product.nombre} <p>id: {{this.id}}</p></h3>
+        <img src="${product.img}" alt="">
+        <p>${product.descripcion}</p>
+        <p>$${product.price}</p>
+      `
+      productList.appendChild(productItem);
+    })
+  })
+
 </script>
